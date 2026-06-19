@@ -595,59 +595,52 @@ select {
   position: relative;
   /* 커버는 padding을 직접 제어하므로 section 기본 padding 오버라이드 */
   padding: 0;
-  min-height: 100svh;          /* 모바일 100% 화면 높이 (svh: safe viewport height) */
-  min-height: 100vh;           /* svh 미지원 브라우저 fallback */
   display: flex;
-  flex-direction: column;
-  overflow: hidden;
+  flex-direction: column;       /* 사진(위) → 글자(아래) 세로 배치 */
+  background-color: var(--color-bg);
   /* 커버는 즉시 표시 (페이드인 없음) */
   opacity: 1 !important;
   transform: none !important;
 }
 
-/* 배경 이미지 레이어 (js가 background-image를 동적으로 세팅) */
-.cover-bg {
-  position: absolute;
-  inset: 0;
-  background-color: var(--color-bg-section); /* 이미지 로드 전/실패 시 fallback 색 */
-  background-size: cover;
-  background-position: center top;
-  background-repeat: no-repeat;
-  /* 살짝 줌인 연출: 페이지 로드 시 scale(1.06) → scale(1) */
+/* 사진 영역 — 인물이 잘리지 않도록 이미지 전체를 표시 */
+.cover-photo {
+  width: 100%;
+  background-color: var(--color-bg-section); /* 로드 전/실패 시 fallback 색 */
+  /* 살짝 줌인 연출 */
   animation: cover-zoom 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  overflow: hidden;
+  line-height: 0;               /* img 하단 여백 제거 */
+}
+
+.cover-img {
+  display: block;
+  width: 100%;
+  height: auto;                 /* 비율 유지 — 사진이 안 잘림 */
+  object-fit: contain;
+}
+
+/* 이미지 로드 실패 시 최소 높이 확보용 */
+.cover-photo.img-placeholder {
+  min-height: 60vh;
 }
 
 @keyframes cover-zoom {
-  from { transform: scale(1.06); }
+  from { transform: scale(1.04); }
   to   { transform: scale(1); }
 }
 
-/* 하단으로 갈수록 어두워지는 그라디언트 오버레이 */
-.cover-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.08) 0%,
-    rgba(0, 0, 0, 0.25) 55%,
-    rgba(0, 0, 0, 0.62) 100%
-  );
-}
-
-/* 텍스트 콘텐츠 레이어 */
+/* 텍스트 콘텐츠 레이어 — 사진 아래, 흰 배경 */
 .cover-content {
-  position: relative;          /* overlay/bg 위에 올라오게 */
-  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;   /* 하단 쪽으로 배치 */
-  flex: 1;
-  padding: var(--space-xl) var(--section-padding-h) 52px;
+  justify-content: center;
   text-align: center;
-  color: #ffffff;
-  /* 페이드인: 배경 줌보다 살짝 늦게 */
-  animation: cover-fade-in 1.2s 0.4s ease both;
+  color: var(--color-text);
+  padding: var(--space-2xl) var(--section-padding-h) var(--space-2xl);
+  /* 페이드인 */
+  animation: cover-fade-in 1.2s 0.3s ease both;
 }
 
 @keyframes cover-fade-in {
@@ -662,18 +655,8 @@ select {
   font-weight: 300;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.82);
+  color: var(--color-text-light);
   margin-bottom: var(--space-lg);
-}
-
-/* 날짜 텍스트 */
-.cover-date {
-  font-family: var(--font-body);
-  font-size: var(--font-size-sm);
-  font-weight: 300;
-  letter-spacing: 0.12em;
-  color: rgba(255, 255, 255, 0.88);
-  margin-bottom: var(--space-md);
 }
 
 /* 신랑 ♡ 신부 이름 블록 */
@@ -682,7 +665,7 @@ select {
   align-items: center;
   justify-content: center;
   gap: var(--space-sm);
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-lg);
 }
 
 /* 각 이름 — 이름이 중간에서 줄바꿈되지 않도록 nowrap */
@@ -692,16 +675,25 @@ select {
   font-weight: 400;
   letter-spacing: 0.1em;
   line-height: var(--line-height-tight);
-  color: #ffffff;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+  color: var(--color-text);
   white-space: nowrap;
 }
 
 /* 하트 구분자 */
 .cover-heart {
   font-size: var(--font-size-lg);
-  color: rgba(255, 255, 255, 0.75);
+  color: var(--color-point, #c2a878);
   flex-shrink: 0;
+}
+
+/* 날짜 텍스트 */
+.cover-date {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  color: var(--color-text);
+  margin-bottom: var(--space-xs);
 }
 
 /* 예식장명 */
@@ -710,7 +702,7 @@ select {
   font-size: var(--font-size-sm);
   font-weight: 300;
   letter-spacing: 0.1em;
-  color: rgba(255, 255, 255, 0.78);
+  color: var(--color-text-light);
 }
 
 

@@ -113,19 +113,17 @@ function initCover() {
   const w = CONFIG.wedding;
 
   section.innerHTML = `
-    <!-- 배경 이미지 레이어 -->
-    <div class="cover-bg" id="cover-bg" role="img" aria-label="${escapeHtml(g.name)}과 ${escapeHtml(b.name)}의 결혼식 대표 사진"></div>
+    <!-- 사진 레이어 (인물이 가려지지 않도록 글자와 분리) -->
+    <div class="cover-photo" id="cover-photo">
+      <img class="cover-img" id="cover-img"
+           src="${escapeHtml(CONFIG.mainVisual || '')}"
+           alt="${escapeHtml(g.name)}과 ${escapeHtml(b.name)}의 결혼식 대표 사진" />
+    </div>
 
-    <!-- 배경 위 어두운 그라디언트 오버레이 -->
-    <div class="cover-overlay"></div>
-
-    <!-- 콘텐츠 레이어 -->
+    <!-- 콘텐츠 레이어 (사진 아래) -->
     <div class="cover-content">
       <!-- 상단 영문 레이블 -->
       <p class="cover-label">We are getting married</p>
-
-      <!-- 날짜 -->
-      <p class="cover-date">${escapeHtml(w.dateText)}</p>
 
       <!-- 신랑 ♡ 신부 이름 (명조 큰 글씨) -->
       <div class="cover-names">
@@ -134,26 +132,24 @@ function initCover() {
         <span class="cover-name">${escapeHtml(b.name)}</span>
       </div>
 
+      <!-- 날짜 -->
+      <p class="cover-date">${escapeHtml(w.dateText)}</p>
+
       <!-- 예식장명 -->
       <p class="cover-venue">${escapeHtml(w.venue)}</p>
     </div>
   `;
 
-  // 배경 이미지 설정 (onerror 불가한 CSS background 대신 Image 객체로 사전 검사)
-  const bgEl = document.getElementById('cover-bg');
-  if (CONFIG.mainVisual) {
-    const img = new Image();
-    img.onload = () => {
-      bgEl.style.backgroundImage = `url('${CONFIG.mainVisual}')`;
-      bgEl.classList.remove('img-placeholder');
+  // 이미지 로드 실패 시 placeholder 처리
+  const imgEl = document.getElementById('cover-img');
+  const photoEl = document.getElementById('cover-photo');
+  if (CONFIG.mainVisual && imgEl) {
+    imgEl.onerror = () => {
+      imgEl.style.display = 'none';
+      photoEl.classList.add('img-placeholder');
     };
-    img.onerror = () => {
-      // 이미지 로드 실패 시 fallback 배경색 유지
-      bgEl.classList.add('img-placeholder');
-    };
-    img.src = CONFIG.mainVisual;
-  } else {
-    bgEl.classList.add('img-placeholder');
+  } else if (photoEl) {
+    photoEl.classList.add('img-placeholder');
   }
 }
 
