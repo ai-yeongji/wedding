@@ -117,7 +117,23 @@
     infowindow.open(map, marker);
   }
 
-  /* ── 지도 플레이스홀더 (키 없을 때) ── */
+  /* ── 구글맵 iframe (API 키 불필요) ──
+     검색어(예식장명+주소)로 표시해 좌표 오차의 영향을 받지 않음 */
+  function renderGoogleMapEmbed(container, venue, address) {
+    var query = encodeURIComponent((venue ? venue + ' ' : '') + address);
+    var src = 'https://maps.google.com/maps?q=' + query + '&t=&z=16&ie=UTF8&iwloc=&output=embed';
+    var iframe = document.createElement('iframe');
+    iframe.src = src;
+    iframe.title = _escapeHtml(venue || address) + ' 지도';
+    iframe.loading = 'lazy';
+    iframe.referrerPolicy = 'no-referrer-when-downgrade';
+    iframe.setAttribute('allowfullscreen', '');
+    iframe.style.cssText = 'width:100%;height:100%;border:0;display:block;';
+    container.innerHTML = '';
+    container.appendChild(iframe);
+  }
+
+  /* ── 지도 플레이스홀더 (구글맵 로드 자체가 불가한 극단적 fallback) ── */
   function renderMapPlaceholder(container, address, lat, lng) {
     var googleUrl = 'https://maps.google.com/?q=' + lat + ',' + lng;
     container.innerHTML =
@@ -230,23 +246,25 @@
     mapWrap.appendChild(mapEl);
     section.appendChild(mapWrap);
 
-    /* 카카오 지도 SDK 키 유무에 따라 분기 */
+    /* 지도 렌더링
+       - CONFIG.kakaoMapJsKey가 있으면 카카오 SDK 지도 (정확한 마커)
+       - 없으면 구글맵 iframe (API 키 불필요, 기본) */
     var kakaoKey = CONFIG.kakaoMapJsKey;
     if (kakaoKey && kakaoKey.trim()) {
       loadKakaoMapSdk(kakaoKey, function (err) {
         if (err) {
-          renderMapPlaceholder(mapEl, address, lat, lng);
+          renderGoogleMapEmbed(mapEl, venue, address);
         } else {
           try {
             renderKakaoMap(mapEl, lat, lng, venue);
           } catch (e) {
-            renderMapPlaceholder(mapEl, address, lat, lng);
+            renderGoogleMapEmbed(mapEl, venue, address);
           }
         }
       });
     } else {
-      /* 키 없음 → graceful fallback */
-      renderMapPlaceholder(mapEl, address, lat, lng);
+      /* 키 없음 → 구글맵 iframe (팀원과 동일 방식) */
+      renderGoogleMapEmbed(mapEl, venue, address);
     }
 
     /* 길찾기 버튼 3종 */
