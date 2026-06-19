@@ -118,7 +118,29 @@
     }
   });
 
+  /* ── 자동재생 ──
+     1) 페이지 로드 직후 재생 시도 (PC/허용 환경에서 바로 켜짐)
+     2) 모바일 등 정책 차단 시 → 첫 사용자 인터랙션(터치/클릭/스크롤/키)에서 1회 재생
+     사용자가 버튼으로 직접 끈 경우(userPaused)에는 자동 복원하지 않음 */
+  function autoPlayOnce() {
+    if (!isPlaying && !userPaused) tryPlay();
+    removeAutoPlayListeners();
+  }
+  function removeAutoPlayListeners() {
+    ['pointerdown', 'touchstart', 'click', 'keydown', 'scroll'].forEach(function (ev) {
+      window.removeEventListener(ev, autoPlayOnce);
+    });
+  }
+
   /* 초기 버튼 상태 설정 */
   updateBtn();
+
+  /* 1) 즉시 재생 시도 (차단되면 catch에서 조용히 무시) */
+  tryPlay();
+
+  /* 2) 첫 인터랙션에 재생 (모바일 자동재생 정책 우회) */
+  ['pointerdown', 'touchstart', 'click', 'keydown', 'scroll'].forEach(function (ev) {
+    window.addEventListener(ev, autoPlayOnce, { once: false, passive: true });
+  });
 
 })();
