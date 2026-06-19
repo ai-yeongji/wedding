@@ -28,6 +28,16 @@
     }, 2500);
   };
 
+  /* ── 민감정보 디코드 헬퍼 (ui.js fallback 포함) ── */
+  var _decode = window.decodeSensitive || function (s) {
+    if (!s) return '';
+    try {
+      var bin = atob(s);
+      var bytes = Uint8Array.from(bin, function (c) { return c.charCodeAt(0); });
+      return new TextDecoder('utf-8').decode(bytes);
+    } catch (e) { return s; }
+  };
+
   /* ── 클립보드 복사 헬퍼 ── */
   function copyToClipboard(text, successMsg) {
     successMsg = successMsg || '복사되었습니다.';
@@ -114,12 +124,15 @@
         var card = document.createElement('div');
         card.className = 'account-card';
 
+        /* 계좌번호는 config에 Base64로 저장됨 → 디코드해서 표시/복사 */
+        var accNumber = _decode(acc.number);
+
         var info = document.createElement('div');
         info.className = 'account-card__info';
         info.innerHTML =
           '<span class="account-card__bank">' + _escapeHtml(acc.bank) + '</span>' +
           '<span class="account-card__holder">' + _escapeHtml(acc.holder) + '</span>' +
-          '<span class="account-card__number">' + _escapeHtml(acc.number) + '</span>';
+          '<span class="account-card__number">' + _escapeHtml(accNumber) + '</span>';
 
         var copyBtn = document.createElement('button');
         copyBtn.type = 'button';
@@ -127,12 +140,12 @@
         copyBtn.setAttribute('aria-label', acc.holder + ' 계좌번호 복사');
         copyBtn.textContent = '복사';
 
-        /* 클로저로 acc.number 캡처 */
+        /* 클로저로 디코드된 번호 캡처 */
         (function (number, holder) {
           copyBtn.addEventListener('click', function () {
             copyToClipboard(number, holder + ' 계좌번호가 복사되었습니다.');
           });
-        })(acc.number, acc.holder);
+        })(accNumber, acc.holder);
 
         card.appendChild(info);
         card.appendChild(copyBtn);

@@ -43,6 +43,16 @@
       .replace(/'/g, '&#39;');
   };
 
+  /* ── 헬퍼: 민감정보(연락처) Base64 디코드 (ui.js fallback 포함) ── */
+  var _decode = window.decodeSensitive || function (s) {
+    if (!s) return '';
+    try {
+      var bin = atob(s);
+      var bytes = Uint8Array.from(bin, function (c) { return c.charCodeAt(0); });
+      return new TextDecoder('utf-8').decode(bytes);
+    } catch (e) { return s; }
+  };
+
   /* ── 헬퍼: 클립보드 복사 (https/localhost 전용, execCommand fallback 포함) ── */
   function copyToClipboard(text, successMsg) {
     successMsg = successMsg || '복사되었습니다.';
@@ -189,6 +199,9 @@
       rowsEl.className = 'contact-rows';
 
       validItems.forEach(function (c) {
+        // 연락처는 config에 Base64로 저장됨 → 디코드해서 tel:/sms: 링크 구성
+        var phone = _decode(c.phone).replace(/-/g, '');
+
         var rowEl = document.createElement('div');
         rowEl.className = 'contact-row';
 
@@ -202,7 +215,7 @@
 
         // 전화 버튼
         var telBtn = document.createElement('a');
-        telBtn.href = 'tel:' + c.phone.replace(/-/g, '');
+        telBtn.href = 'tel:' + phone;
         telBtn.className = 'btn btn--ghost btn--contact';
         telBtn.setAttribute('aria-label', c.label + ' 전화 걸기');
         telBtn.innerHTML = '&#128222; 전화';
@@ -210,7 +223,7 @@
 
         // 문자 버튼
         var smsBtn = document.createElement('a');
-        smsBtn.href = 'sms:' + c.phone.replace(/-/g, '');
+        smsBtn.href = 'sms:' + phone;
         smsBtn.className = 'btn btn--ghost btn--contact';
         smsBtn.setAttribute('aria-label', c.label + ' 문자 보내기');
         smsBtn.innerHTML = '&#128172; 문자';

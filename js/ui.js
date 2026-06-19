@@ -35,6 +35,28 @@ function escapeHtml(str) {
 window.escapeHtml = escapeHtml;
 
 /**
+ * decodeSensitive(encoded) — Base64로 인코딩된 민감정보(계좌·연락처) 디코딩
+ * config.js에는 평문 대신 Base64 문자열로 저장하여 소스에 번호가 그대로
+ * 노출되는 것을 막는다(봇·자동수집 회피용. 암호화는 아님).
+ * UTF-8 안전 디코딩(한글 등). 빈 값/비인코딩 값은 원본을 그대로 반환.
+ * @param {string} encoded - Base64 문자열
+ * @returns {string} 디코딩된 평문
+ */
+function decodeSensitive(encoded) {
+  if (!encoded) return '';
+  try {
+    var bin = atob(encoded);
+    // UTF-8 디코딩 (한글 등 멀티바이트 안전)
+    var bytes = Uint8Array.from(bin, function (c) { return c.charCodeAt(0); });
+    return new TextDecoder('utf-8').decode(bytes);
+  } catch (e) {
+    // 인코딩되지 않은 값(평문)이 들어온 경우 그대로 반환
+    return encoded;
+  }
+}
+window.decodeSensitive = decodeSensitive;
+
+/**
  * showToast(msg, duration?) — 화면 하단 토스트 메시지 표시
  * 계좌 복사, URL 복사 완료 등 짧은 피드백에 사용.
  * 중복 호출 시 이전 토스트를 즉시 교체한다.

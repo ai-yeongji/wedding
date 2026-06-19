@@ -23,7 +23,7 @@ const CONFIG = {
     father: '유재선',         // 아버지 이름 — 커버 혼주 표시
     mother: '이금민',           // 어머니 이름 — 커버 혼주 표시
     order: '아들',            // '장남' | '차남' | '아들' 등 — 커버 혼주 레이블
-    phone: ''   // 신랑 연락처 — contacts 버튼 fallback
+    phone: ''                // (미사용) 실제 연락처는 아래 contacts에 Base64로 저장
   },
 
   /* ─────────────────────────────────────────
@@ -36,7 +36,7 @@ const CONFIG = {
     father: '노정태',
     mother: '양명숙',
     order: '딸',             // '장녀' | '차녀' | '딸' 등
-    phone: ''
+    phone: ''                // (미사용) 실제 연락처는 아래 contacts에 Base64로 저장
   },
 
   /* ─────────────────────────────────────────
@@ -100,31 +100,34 @@ const CONFIG = {
 
   /* ─────────────────────────────────────────
    * 7. 계좌 정보
-   *    사용처: #accounts 섹션 — 클립보드 복사 버튼과 함께 표시
-   *    bank: 은행명, holder: 예금주, number: 계좌번호
+   *    사용처: #accounts 섹션 — 신랑측/신부측 펼침 + 복사
+   *    ⚠️ number는 Base64 인코딩 값 (소스에 평문 노출 방지)
+   *       인코딩 방법: 브라우저 콘솔(F12)에서 btoa('계좌번호') 실행 후 결과 붙여넣기
+   *       예: btoa('000-000-000000') → 그 결과를 number에 입력
    * ───────────────────────────────────────── */
   accounts: {
     groom: [
-      { bank: '우리은행', holder: '유동윤', number: '' }
+      { bank: '우리은행', holder: '유동윤', number: 'MTAwLTI4NTItNjU1OTc2' }
     ],
     bride: [
-      { bank: '신한은행', holder: '노영지', number: '' }
+      { bank: '신한은행', holder: '노영지', number: 'MTEwLTQ5OC0yNDI2MTM=' }
     ]
   },
 
   /* ─────────────────────────────────────────
    * 8. 연락처 (전화/문자 버튼)
-   *    사용처: #location 또는 별도 contacts 섹션
-   *    phone이 빈 문자열('')이면 버튼 비활성화 처리
+   *    사용처: #location 오시는 길 — 전화/문자 버튼
+   *    ⚠️ phone은 Base64 인코딩 값 (소스에 평문 노출 방지)
+   *    phone이 빈 문자열('')이면 해당 항목 숨김
    * ───────────────────────────────────────── */
   contacts: {
     groomSide: [
-      { label: '신랑', phone: '' },
+      { label: '신랑', phone: 'MDEwLTcxMzItMTcyOA==' },
       { label: '신랑 아버지', phone: '' },
       { label: '신랑 어머니', phone: '' }
     ],
     brideSide: [
-      { label: '신부', phone: '' },
+      { label: '신부', phone: 'MDEwLTk1MTEtMzM1Mw==' },
       { label: '신부 아버지', phone: '' },
       { label: '신부 어머니', phone: '' }
     ]
@@ -182,7 +185,7 @@ const CONFIG = {
    *     계속 보여주는 것을 막으려면 이 숫자/문자를 바꿔서 배포하세요.
    *     (이미지 src 뒤에 ?v=값 이 자동으로 붙습니다)
    * ───────────────────────────────────────── */
-  assetVersion: '20260620c'
+  assetVersion: '20260620d'
 
 };
 
