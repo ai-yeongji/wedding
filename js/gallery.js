@@ -19,7 +19,8 @@
   /* -----------------------------------------------------------------
      캐러셀 상태
   ----------------------------------------------------------------- */
-  var images = [];         // CONFIG.gallery 배열
+  var images = [];         // 캐러셀용 (CONFIG.galleryFeatured 우선, 없으면 gallery)
+  var allImages = [];      // 전체보기 그리드용 (CONFIG.gallery 전체)
   var currentIdx = 0;      // 현재 표시 인덱스
   var isDragging = false;  // 터치/드래그 중 여부
   var startX = 0;          // 터치 시작 X 좌표
@@ -180,8 +181,10 @@
   var lbCurrentIdx = 0;
   var lbStartX = 0;
   var lbDiffX = 0;
+  var lbImages = [];       // 현재 라이트박스가 사용하는 이미지 배열
 
-  function openLightbox(idx) {
+  function openLightbox(idx, sourceImages) {
+    lbImages = (sourceImages && sourceImages.length) ? sourceImages : images;
     lbCurrentIdx = idx;
     var modalRoot = document.getElementById('modal-root');
     if (!modalRoot) return;
@@ -273,18 +276,18 @@
     if (!imgWrap) return;
 
     imgWrap.innerHTML = '';
-    var img = makeImg(images[lbCurrentIdx], '갤러리 사진 ' + (lbCurrentIdx + 1), 'lightbox-img');
+    var img = makeImg(lbImages[lbCurrentIdx], '갤러리 사진 ' + (lbCurrentIdx + 1), 'lightbox-img');
     imgWrap.appendChild(img);
 
     if (counter) {
-      counter.textContent = (lbCurrentIdx + 1) + ' / ' + images.length;
+      counter.textContent = (lbCurrentIdx + 1) + ' / ' + lbImages.length;
     }
   }
 
   function moveLightbox(dir) {
     lbCurrentIdx = lbCurrentIdx + dir;
-    if (lbCurrentIdx < 0) lbCurrentIdx = images.length - 1;
-    if (lbCurrentIdx >= images.length) lbCurrentIdx = 0;
+    if (lbCurrentIdx < 0) lbCurrentIdx = lbImages.length - 1;
+    if (lbCurrentIdx >= lbImages.length) lbCurrentIdx = 0;
     updateLightbox();
   }
 
@@ -337,7 +340,11 @@
     var section = document.getElementById('gallery');
     if (!section) return;
 
-    images = Array.isArray(CONFIG.gallery) ? CONFIG.gallery : [];
+    allImages = Array.isArray(CONFIG.gallery) ? CONFIG.gallery : [];
+    // 캐러셀: galleryFeatured 우선, 없으면 전체 gallery 사용
+    images = (Array.isArray(CONFIG.galleryFeatured) && CONFIG.galleryFeatured.length)
+      ? CONFIG.galleryFeatured
+      : allImages;
 
     section.innerHTML =
       '<h2 class="section-title">'
@@ -390,15 +397,15 @@
     // 썸네일 그리드
     var grid = document.createElement('div');
     grid.className = 'gallery-grid';
-    images.forEach(function (src, i) {
+    allImages.forEach(function (src, i) {
       var cell = document.createElement('figure');
       cell.className = 'gallery-grid__cell';
       var img = makeImg(src, '갤러리 사진 ' + (i + 1));
       cell.appendChild(img);
-      // 썸네일 탭 → 라이트박스로 전체 사진 보기
+      // 썸네일 탭 → 라이트박스로 전체 사진 보기 (전체 목록 기준)
       cell.addEventListener('click', function () {
         closeGridView();
-        openLightbox(i);
+        openLightbox(i, allImages);
       });
       grid.appendChild(cell);
     });

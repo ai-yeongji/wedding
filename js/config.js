@@ -64,18 +64,30 @@ const CONFIG = {
 
   /* ─────────────────────────────────────────
    * 5. 갤러리 이미지 목록
-   *    사용처: #gallery 섹션 — gallery.js가 순서대로 렌더링
-   *    권장: 1:1 또는 3:4 비율, 최대 1MB/장
+   *    galleryFeatured: 캐러셀(슬라이드)용 대표 사진 (가볍게 8~10장 권장)
+   *    gallery:         '사진 전체보기' 그리드용 전체 사진
+   *    (galleryFeatured가 비어 있으면 gallery 전체가 캐러셀에도 표시됨)
+   *    권장: 최대 1MB/장
    * ───────────────────────────────────────── */
-  gallery: [
+  galleryFeatured: [
     'images/g1.jpg',
-    'images/g2.jpg',
-    'images/g3.jpg',
     'images/g4.jpg',
-    'images/g5.jpg',
-    'images/g6.jpg',
     'images/g7.jpg',
-    'images/g8.jpg'
+    'images/g9.jpg',
+    'images/g11.jpg',
+    'images/g13.jpg',
+    'images/g16.jpg',
+    'images/g19.jpg',
+    'images/g21.jpg',
+    'images/g23.jpg'
+  ],
+  gallery: [
+    'images/g1.jpg',  'images/g2.jpg',  'images/g3.jpg',  'images/g4.jpg',
+    'images/g5.jpg',  'images/g6.jpg',  'images/g7.jpg',  'images/g8.jpg',
+    'images/g9.jpg',  'images/g10.jpg', 'images/g11.jpg', 'images/g12.jpg',
+    'images/g13.jpg', 'images/g14.jpg', 'images/g15.jpg', 'images/g16.jpg',
+    'images/g17.jpg', 'images/g18.jpg', 'images/g19.jpg', 'images/g20.jpg',
+    'images/g21.jpg', 'images/g22.jpg', 'images/g23.jpg', 'images/g24.jpg'
   ],
 
   /* ─────────────────────────────────────────
@@ -169,7 +181,7 @@ const CONFIG = {
    *     계속 보여주는 것을 막으려면 이 숫자/문자를 바꿔서 배포하세요.
    *     (이미지 src 뒤에 ?v=값 이 자동으로 붙습니다)
    * ───────────────────────────────────────── */
-  assetVersion: '20260619c'
+  assetVersion: '20260619d'
 
 };
 
