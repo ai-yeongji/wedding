@@ -30,7 +30,9 @@
   ----------------------------------------------------------------- */
   function makeImg(src, alt, cls) {
     var img = document.createElement('img');
-    img.src = src;
+    // 캐시 무효화: 이미지 경로에 ?v=버전 부착
+    var ver = (typeof CONFIG !== 'undefined' && CONFIG.assetVersion) ? ('?v=' + CONFIG.assetVersion) : '';
+    img.src = src + ver;
     img.alt = alt || '';
     if (cls) img.className = cls;
     img.onerror = function () {

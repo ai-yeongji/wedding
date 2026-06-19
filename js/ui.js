@@ -118,11 +118,15 @@ function initCover() {
   const gName = givenName(g.name);
   const bName = givenName(b.name);
 
+  // 캐시 무효화: 이미지 src 뒤에 ?v=버전 부착
+  const ver = CONFIG.assetVersion ? ('?v=' + CONFIG.assetVersion) : '';
+  const mainSrc = CONFIG.mainVisual ? (CONFIG.mainVisual + ver) : '';
+
   section.innerHTML = `
     <!-- 사진 레이어 (인물이 가려지지 않도록 글자와 분리) -->
     <div class="cover-photo" id="cover-photo">
       <img class="cover-img" id="cover-img"
-           src="${escapeHtml(CONFIG.mainVisual || '')}"
+           src="${escapeHtml(mainSrc)}"
            alt="${escapeHtml(g.name)}과 ${escapeHtml(b.name)}의 결혼식 대표 사진" />
     </div>
 
