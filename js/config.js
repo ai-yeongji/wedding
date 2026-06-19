@@ -70,8 +70,8 @@ const CONFIG = {
    *    권장: 최대 1MB/장
    * ───────────────────────────────────────── */
   galleryFeatured: [
+    'images/g4.jpg',   // 커플 사진 (첫 슬라이드)
     'images/g1.jpg',
-    'images/g4.jpg',
     'images/g7.jpg',
     'images/g9.jpg',
     'images/g11.jpg',
@@ -79,7 +79,8 @@ const CONFIG = {
     'images/g16.jpg',
     'images/g19.jpg',
     'images/g21.jpg',
-    'images/g23.jpg'
+    'images/g23.jpg',
+    'images/g20.jpg'   // 신랑 독사진 (마지막 슬라이드)
   ],
   gallery: [
     'images/g1.jpg',  'images/g2.jpg',  'images/g3.jpg',  'images/g4.jpg',
@@ -181,7 +182,7 @@ const CONFIG = {
    *     계속 보여주는 것을 막으려면 이 숫자/문자를 바꿔서 배포하세요.
    *     (이미지 src 뒤에 ?v=값 이 자동으로 붙습니다)
    * ───────────────────────────────────────── */
-  assetVersion: '20260620a'
+  assetVersion: '20260620b'
 
 };
 
