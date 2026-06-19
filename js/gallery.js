@@ -346,6 +346,86 @@
     + '</h2>';
 
     renderCarousel(section);
+
+    // 전체보기 버튼
+    if (images.length) {
+      var viewAllBtn = document.createElement('button');
+      viewAllBtn.type = 'button';
+      viewAllBtn.className = 'gallery-viewall';
+      viewAllBtn.textContent = '사진 전체보기';
+      viewAllBtn.addEventListener('click', openGridView);
+      section.appendChild(viewAllBtn);
+    }
+  }
+
+  /* -----------------------------------------------------------------
+     전체보기 (그리드) 오버레이
+  ----------------------------------------------------------------- */
+  function openGridView() {
+    var modalRoot = document.getElementById('modal-root');
+    if (!modalRoot) return;
+
+    modalRoot.innerHTML = '';
+    modalRoot.setAttribute('role', 'dialog');
+    modalRoot.setAttribute('aria-modal', 'true');
+    modalRoot.setAttribute('aria-hidden', 'false');
+
+    var view = document.createElement('div');
+    view.className = 'gallery-grid-view';
+
+    // 상단 바 (제목 + 닫기)
+    var bar = document.createElement('div');
+    bar.className = 'gallery-grid-view__bar';
+    var title = document.createElement('span');
+    title.className = 'gallery-grid-view__title';
+    title.textContent = '갤러리';
+    var closeBtn = document.createElement('button');
+    closeBtn.className = 'gallery-grid-view__close';
+    closeBtn.innerHTML = '&times;';
+    closeBtn.setAttribute('aria-label', '닫기');
+    closeBtn.addEventListener('click', closeGridView);
+    bar.appendChild(title);
+    bar.appendChild(closeBtn);
+
+    // 썸네일 그리드
+    var grid = document.createElement('div');
+    grid.className = 'gallery-grid';
+    images.forEach(function (src, i) {
+      var cell = document.createElement('figure');
+      cell.className = 'gallery-grid__cell';
+      var img = makeImg(src, '갤러리 사진 ' + (i + 1));
+      cell.appendChild(img);
+      // 썸네일 탭 → 라이트박스로 전체 사진 보기
+      cell.addEventListener('click', function () {
+        closeGridView();
+        openLightbox(i);
+      });
+      grid.appendChild(cell);
+    });
+
+    view.appendChild(bar);
+    view.appendChild(grid);
+    modalRoot.appendChild(view);
+
+    document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', onGridKeydown);
+    closeBtn.focus();
+  }
+
+  function closeGridView() {
+    var modalRoot = document.getElementById('modal-root');
+    if (modalRoot) {
+      modalRoot.removeAttribute('role');
+      modalRoot.removeAttribute('aria-modal');
+      modalRoot.setAttribute('aria-hidden', 'true');
+      modalRoot.innerHTML = '';
+    }
+    document.body.style.overflow = '';
+    document.removeEventListener('keydown', onGridKeydown);
+  }
+
+  function onGridKeydown(e) {
+    if (e.key === 'Escape') closeGridView();
   }
 
 

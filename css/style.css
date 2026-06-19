@@ -941,28 +941,29 @@ select {
   will-change: transform;
 }
 
-/* 개별 슬라이드 */
+/* 개별 슬라이드 — 세로 사진 비율(3:4)을 살려 크게, 잘리지 않게 */
 .carousel-slide {
   flex: 0 0 100%;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  min-height: 260px;
   background-color: var(--color-bg-section);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* 슬라이드 내 이미지 */
+/* 슬라이드 내 이미지 — contain으로 전체가 보이게 (크롭 없음) */
 .carousel-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
   display: block;
-  aspect-ratio: 4 / 3;
+  width: 100%;
+  height: auto;            /* 비율 유지 → 위아래 안 잘림 */
+  object-fit: contain;
   user-select: none;
   -webkit-user-drag: none;
 }
+
+/* 캐러셀 래퍼는 이미지 높이에 맞춰 자연스럽게 늘어나도록 */
+.carousel-wrapper { min-height: 0; }
 
 /* 이미지 로드 실패 슬라이드 */
 .carousel-slide.img-placeholder {
@@ -1029,6 +1030,86 @@ select {
 /* 갤러리 비어있을 때 메시지 */
 .gallery-empty {
   padding: var(--space-xl) 0;
+}
+
+/* 전체보기 버튼 */
+.gallery-viewall {
+  display: block;
+  margin: var(--space-lg) auto 0;
+  padding: 10px 26px;
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.06em;
+  color: var(--color-text);
+  background: transparent;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+}
+.gallery-viewall:hover,
+.gallery-viewall:active {
+  background-color: var(--color-text);
+  color: #fff;
+}
+
+/* 전체보기 그리드 오버레이 (#modal-root에 삽입) */
+.gallery-grid-view {
+  position: fixed;
+  inset: 0;
+  background: var(--color-bg);
+  z-index: 1000;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.gallery-grid-view__bar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-md) var(--space-lg);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--color-border);
+  z-index: 1;
+}
+.gallery-grid-view__title {
+  font-family: var(--font-display);
+  font-size: var(--font-size-md);
+  color: var(--color-text);
+}
+.gallery-grid-view__close {
+  width: 34px;
+  height: 34px;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--color-text);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+  padding: 6px;
+}
+.gallery-grid__cell {
+  margin: 0;
+  cursor: pointer;
+  background: var(--color-bg-section);
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+}
+.gallery-grid__cell img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;   /* 그리드 썸네일은 정렬 위해 크롭 — 탭하면 라이트박스로 전체 표시 */
 }
 
 
