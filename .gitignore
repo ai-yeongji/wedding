@@ -1,0 +1,15 @@
+# 시스템 파일
+.DS_Store
+**/.DS_Store
+
+# 원본 사진(대용량) — 최적화본 images/g1~g8.jpg, main_visual.jpg만 배포
+images/raw_images/
+
+# 로컬 개발/미리보기 전용
+.claude/
+
+# ★ 개인정보 보호: 실제 데이터(이름·계좌·연락처)가 담긴 config는 git에 올리지 않음
+#   - 본인 PC의 js/config.js 에만 실제 값 보관
+#   - 저장소에는 빈 템플릿 js/config.sample.js 만 공개
+#   - 배포 방법은 SETUP.md 참고 (Pages에는 config.js를 포함해 올려야 함)
+js/config.js
