@@ -145,6 +145,26 @@
       '</div>';
   }
 
+  /* ── 교통편 안내 렌더링 (CONFIG.transport) ── */
+  function renderTransport(container, transport) {
+    if (!Array.isArray(transport) || !transport.length) return;
+
+    var wrap = document.createElement('div');
+    wrap.className = 'transport-list';
+
+    transport.forEach(function (item) {
+      if (!item || (!item.title && !item.body)) return;
+      var el = document.createElement('div');
+      el.className = 'transport-item';
+      el.innerHTML =
+        '<p class="transport-item__title">' + _escapeHtml(item.title || '') + '</p>' +
+        '<p class="transport-item__body">' + _escapeHtml(item.body || '') + '</p>';
+      wrap.appendChild(el);
+    });
+
+    container.appendChild(wrap);
+  }
+
   /* ── 연락처 버튼 렌더링 ── */
   function renderContacts(container, contacts) {
     var sides = [
@@ -281,6 +301,9 @@
          'class="btn btn--ghost map-nav-btn" aria-label="티맵으로 길찾기">' +
          '<span class="map-nav-btn__icon tmap-icon"></span>티맵</a>';
     section.appendChild(navEl);
+
+    /* 교통편 안내 */
+    renderTransport(section, CONFIG.transport);
 
     /* 연락처 */
     var contactWrap = document.createElement('div');

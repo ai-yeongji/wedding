@@ -1208,6 +1208,35 @@ select {
   display: block;
 }
 
+/* 교통편 안내 */
+.transport-list {
+  margin-top: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+.transport-item {
+  text-align: left;
+  padding: var(--space-md) var(--space-lg);
+  background-color: var(--color-bg-section);
+  border-radius: var(--radius-md);
+}
+.transport-item__title {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text);
+  margin-bottom: 6px;
+}
+.transport-item__body {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--color-text-light);
+  white-space: pre-line;   /* \n 줄바꿈 처리 */
+}
+
 /* 지도 플레이스홀더 (키 없을 때) */
 .map-placeholder {
   width: 100%;
