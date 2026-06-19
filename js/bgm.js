@@ -26,6 +26,10 @@
     btn.hidden = true;
     return;
   }
+  /* 캐시 무효화: 음원 교체 시 옛 캐시 방지 */
+  if (CONFIG.assetVersion) {
+    bgmSrc += (bgmSrc.indexOf('?') === -1 ? '?v=' : '&v=') + CONFIG.assetVersion;
+  }
 
   var audio = new Audio();
   audio.loop = true;
