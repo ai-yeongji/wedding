@@ -112,6 +112,12 @@ function initCover() {
   const b = CONFIG.bride;
   const w = CONFIG.wedding;
 
+  // 커버에는 성을 뗀 이름만 표시 (레퍼런스 스타일: "동윤 🤍 영지")
+  // 한국 이름 통념상 3글자면 성 1글자 제거, 그 외 길이는 원본 유지(안전)
+  const givenName = (full) => (full && full.length === 3) ? full.slice(1) : full;
+  const gName = givenName(g.name);
+  const bName = givenName(b.name);
+
   section.innerHTML = `
     <!-- 사진 레이어 (인물이 가려지지 않도록 글자와 분리) -->
     <div class="cover-photo" id="cover-photo">
@@ -125,11 +131,11 @@ function initCover() {
       <!-- 상단 영문 레이블 -->
       <p class="cover-label">We are getting married</p>
 
-      <!-- 신랑 ♡ 신부 이름 (명조 큰 글씨) -->
+      <!-- 신랑 🤍 신부 이름 (성 제외, 명조) -->
       <div class="cover-names">
-        <span class="cover-name">${escapeHtml(g.name)}</span>
-        <span class="cover-heart">♡</span>
-        <span class="cover-name">${escapeHtml(b.name)}</span>
+        <span class="cover-name">${escapeHtml(gName)}</span>
+        <span class="cover-heart">🤍</span>
+        <span class="cover-name">${escapeHtml(bName)}</span>
       </div>
 
       <!-- 날짜 -->

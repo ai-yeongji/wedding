@@ -671,18 +671,17 @@ select {
 /* 각 이름 — 이름이 중간에서 줄바꿈되지 않도록 nowrap */
 .cover-name {
   font-family: var(--font-display);
-  font-size: var(--font-size-3xl);
+  font-size: 28px;              /* 레퍼런스처럼 아담하게 (기존 38px → 28px) */
   font-weight: 400;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   line-height: var(--line-height-tight);
   color: var(--color-text);
   white-space: nowrap;
 }
 
-/* 하트 구분자 */
+/* 하트 구분자 (🤍 이모지 — 이름보다 살짝 작게) */
 .cover-heart {
-  font-size: var(--font-size-lg);
-  color: var(--color-point, #c2a878);
+  font-size: 18px;
   flex-shrink: 0;
 }
 
