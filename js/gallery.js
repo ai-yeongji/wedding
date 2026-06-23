@@ -359,7 +359,7 @@
       var viewAllBtn = document.createElement('button');
       viewAllBtn.type = 'button';
       viewAllBtn.className = 'gallery-viewall';
-      viewAllBtn.textContent = '사진 전체보기';
+      viewAllBtn.textContent = '더보기';
       viewAllBtn.addEventListener('click', openGridView);
       section.appendChild(viewAllBtn);
     }

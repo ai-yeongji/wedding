@@ -1093,9 +1093,9 @@ select {
 }
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 6px;
-  padding: 6px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  padding: 4px;
 }
 .gallery-grid__cell {
   margin: 0;
