@@ -140,12 +140,13 @@
         copyBtn.setAttribute('aria-label', acc.holder + ' 계좌번호 복사');
         copyBtn.textContent = '복사';
 
-        /* 클로저로 디코드된 번호 캡처 */
-        (function (number, holder) {
+        /* 복사 시 은행명 + 예금주 + 계좌번호를 함께 복사 (예: "우리은행 유동윤 100-...") */
+        (function (bank, holder, number) {
+          var copyText = [bank, holder, number].filter(Boolean).join(' ');
           copyBtn.addEventListener('click', function () {
-            copyToClipboard(number, holder + ' 계좌번호가 복사되었습니다.');
+            copyToClipboard(copyText, holder + ' 계좌가 복사되었습니다.');
           });
-        })(accNumber, acc.holder);
+        })(acc.bank, acc.holder, accNumber);
 
         card.appendChild(info);
         card.appendChild(copyBtn);
