@@ -47,7 +47,7 @@ const CONFIG = {
    * ───────────────────────────────────────── */
   wedding: {
     date: '2026-10-03T11:00:00',           // ISO 8601 — countdown.js가 D-day 계산에 사용
-    dateText: '2026년 10월 03일 토요일 오전 11시 00분', // 사람이 읽는 형식 — calendar/cover 섹션 표시
+    dateText: '2026년 10월 03일 토요일 11시', // 사람이 읽는 형식 — calendar/cover 섹션 표시
     venue: '노블발렌티 대치점',              // 웨딩홀 상호 — location 섹션 헤더
     hall: 'B1층 단독홀',                   // 홀 이름 — location 섹션 서브텍스트 (S타워 지하1층)
     address: '서울특별시 강남구 영동대로 325', // 도로명 주소 (S타워) — location 섹션 + 지도 링크
