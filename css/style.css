@@ -1108,8 +1108,8 @@ select {
   display: block;
   width: 100%;
   height: 100%;
-  aspect-ratio: 3 / 4;
-  object-fit: cover;   /* 그리드 썸네일은 정렬 위해 크롭 — 탭하면 라이트박스로 전체 표시 */
+  aspect-ratio: 1 / 1;
+  object-fit: cover;   /* 그리드 썸네일은 정사각형으로 크롭 — 탭하면 라이트박스로 전체 표시 */
 }
 
 
