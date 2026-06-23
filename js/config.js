@@ -161,7 +161,7 @@ const CONFIG = {
    *     발급: apps-script/ 폴더의 스크립트를 배포하면 URL 생성됨
    *     비어있으면 폼 제출 버튼을 disabled 처리
    * ───────────────────────────────────────── */
-  appsScriptUrl: '',
+  appsScriptUrl: 'https://script.google.com/macros/s/AKfycbzvjPioLmKLHiPugvd5XOl_BOHQVDeHO_ZXyI5EYlMcf9opCiyHF4is7s1SZNXXVpPAMA/exec',
 
   /* ─────────────────────────────────────────
    * 11. BGM 파일 경로
