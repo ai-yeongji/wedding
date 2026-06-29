@@ -1365,18 +1365,19 @@ select {
   letter-spacing: 0;
 }
 
-/* 지도 앱 컬러 아이콘 (텍스트 이모지 대용) */
+/* 지도 앱 로고 아이콘 (인라인 SVG) */
 .map-nav-btn__icon {
   display: block;
-  width: 22px;
-  height: 22px;
-  border-radius: var(--radius-sm);
+  width: 26px;
+  height: 26px;
   margin: 0 auto;
+  line-height: 0;
 }
-
-.naver-icon  { background-color: #03c75a; }
-.kakao-icon  { background-color: #fee500; }
-.tmap-icon   { background-color: #e8002d; }
+.map-nav-btn__icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 
 /* 연락처 영역 */
 .location-contacts {

@@ -303,16 +303,39 @@
     /* 길찾기 버튼 3종 */
     var navEl = document.createElement('div');
     navEl.className = 'map-nav-btns';
+    // 각 채널 로고 (인라인 SVG — 외부 이미지 의존 없음)
+    var naverLogo =
+      '<span class="map-nav-btn__icon">' +
+        '<svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden="true">' +
+          '<rect width="32" height="32" rx="8" fill="#03C75A"/>' +
+          '<path fill="#fff" d="M11 9h3.6l2.9 4.6V9H21v14h-3.6l-2.9-4.6V23H11z"/>' +
+        '</svg>' +
+      '</span>';
+    var kakaoLogo =
+      '<span class="map-nav-btn__icon">' +
+        '<svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden="true">' +
+          '<rect width="32" height="32" rx="8" fill="#FEE500"/>' +
+          '<path fill="#3A1D1D" d="M16 8c-4.4 0-8 2.8-8 6.3 0 2.2 1.5 4.2 3.7 5.3l-.8 3 3.4-2.1c.5.07 1.1.1 1.7.1 4.4 0 8-2.8 8-6.3S20.4 8 16 8z"/>' +
+        '</svg>' +
+      '</span>';
+    var tmapLogo =
+      '<span class="map-nav-btn__icon">' +
+        '<svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden="true">' +
+          '<rect width="32" height="32" rx="8" fill="#E8002D"/>' +
+          '<path fill="#fff" d="M9 10h14v3.2h-5.2V23h-3.6v-9.8H9z"/>' +
+        '</svg>' +
+      '</span>';
+
     navEl.innerHTML =
       '<a href="' + navLinks.naver + '" target="_blank" rel="noopener noreferrer" ' +
          'class="btn btn--ghost map-nav-btn" aria-label="네이버지도로 길찾기">' +
-         '<span class="map-nav-btn__icon naver-icon"></span>네이버지도</a>' +
+         naverLogo + '네이버지도</a>' +
       '<a href="' + navLinks.kakao + '" target="_blank" rel="noopener noreferrer" ' +
          'class="btn btn--ghost map-nav-btn" aria-label="카카오맵으로 길찾기">' +
-         '<span class="map-nav-btn__icon kakao-icon"></span>카카오맵</a>' +
+         kakaoLogo + '카카오맵</a>' +
       '<a href="' + navLinks.tmap + '" target="_blank" rel="noopener noreferrer" ' +
          'class="btn btn--ghost map-nav-btn" aria-label="티맵으로 길찾기">' +
-         '<span class="map-nav-btn__icon tmap-icon"></span>티맵</a>';
+         tmapLogo + '티맵</a>';
     section.appendChild(navEl);
 
     /* 교통편 안내 */
