@@ -46,12 +46,19 @@ var GB_LIST_ID  = 'gb-list';
 ───────────────────────────────────────────────────────────────── */
 function formatDate(timestampStr) {
   if (!timestampStr) return '';
-  // 'YYYY-MM-DD HH:mm:ss' 또는 ISO 형식 모두 처리
-  var parts = String(timestampStr).split(/[\s-]/);
+  var s = String(timestampStr);
+  // 1순위: Date로 파싱 (영문 Date 'Tue Jun 30 2026...', ISO, 'YYYY-MM-DD HH:mm:ss' 모두 처리)
+  var d = new Date(s);
+  if (!isNaN(d.getTime())) {
+    var pad = function (n) { return n < 10 ? '0' + n : String(n); };
+    return d.getFullYear() + '.' + pad(d.getMonth() + 1) + '.' + pad(d.getDate());
+  }
+  // 파싱 실패 시 fallback: 앞 10자리에서 YYYY.MM.DD 추출
+  var parts = s.split(/[\s-]/);
   if (parts.length >= 3) {
     return parts[0] + '.' + parts[1] + '.' + parts[2].substring(0, 2);
   }
-  return String(timestampStr).substring(0, 10).replace(/-/g, '.');
+  return s.substring(0, 10).replace(/-/g, '.');
 }
 
 
