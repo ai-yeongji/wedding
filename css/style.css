@@ -715,8 +715,8 @@ select {
 /* 인사말 상단 인용구: 명조, 살짝 크게 강조 */
 .greeting-quote {
   font-family: var(--font-display);
-  font-size: var(--font-size-md);
-  line-height: 1.7;
+  font-size: var(--font-size-base);
+  line-height: 1.75;
   color: var(--color-text-primary);
   white-space: pre-line;       /* \n 줄바꿈 */
   letter-spacing: 0.01em;
@@ -745,6 +745,7 @@ select {
   color: var(--color-text-primary);
   white-space: pre-line;       /* CONFIG의 \n을 실제 줄바꿈으로 표시 */
   letter-spacing: 0.02em;
+  word-break: keep-all;        /* '감사하겠습니다.'의 '다.'가 따로 안 넘어가게 */
   text-align: center;
   margin-bottom: var(--space-xl);
 }

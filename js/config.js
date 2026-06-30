@@ -86,9 +86,9 @@ const CONFIG = {
     'images/g20.jpg'   // 신랑 독사진 (마지막 슬라이드)
   ],
   gallery: [
-    'images/g1.jpg',  'images/g2.jpg',  'images/g3.jpg',  'images/g4.jpg',
-    'images/g5.jpg',  'images/g6.jpg',  'images/g7.jpg',  'images/g8.jpg',
-    'images/g9.jpg',  'images/g10.jpg', 'images/g11.jpg', 'images/g12.jpg',
+    'images/g1.jpg', 'images/g2.jpg', 'images/g3.jpg', 'images/g4.jpg',
+    'images/g5.jpg', 'images/g6.jpg', 'images/g7.jpg', 'images/g8.jpg',
+    'images/g9.jpg', 'images/g10.jpg', 'images/g11.jpg', 'images/g12.jpg',
     'images/g13.jpg', 'images/g14.jpg', 'images/g15.jpg', 'images/g16.jpg',
     'images/g17.jpg', 'images/g18.jpg', 'images/g19.jpg', 'images/g20.jpg',
     'images/g21.jpg', 'images/g22.jpg', 'images/g23.jpg', 'images/g24.jpg'
@@ -143,10 +143,10 @@ const CONFIG = {
    *    아래는 노블발렌티 대치점(영동대로 325, S타워) 기준 초안 — 확인 후 수정하세요.
    * ───────────────────────────────────────── */
   transport: [
-    { title: '🚇 지하철', body: '2호선 삼성역 3번 출구에서 도보 약 7분 (셔틀버스 수시 운영)' },
-    { title: '🚌 버스',   body: '삼성역·무역센터 정류장 하차 후 도보 이동' },
+    { title: '🚇 지하철', body: '2호선 삼성역 3번 출구 앞 30M 전방 셔틀버스 수시 운영\n(도보 이용시 약 9분 소요)' },
+    { title: '🚌 버스', body: '휘문고교 사거리 버스 정류장 (ID 23-245)' },
     { title: '🚗 자가용', body: "내비게이션에 '노블발렌티 대치점' 또는 '영동대로 325' 검색" },
-    { title: '🅿️ 주차',  body: '건물 내 주차 가능 (자세한 주차 안내는 예식장에 문의)' }
+    { title: '🅿️ 주차', body: '건물 내 지하 주차장 무료 이용 가능 (2시간 무료)\n최대 500대 수용 (만차 시 인근 공영주차장 이용해 주세요)' }
   ],
 
   /* ─────────────────────────────────────────
@@ -188,7 +188,7 @@ const CONFIG = {
    *     계속 보여주는 것을 막으려면 이 숫자/문자를 바꿔서 배포하세요.
    *     (이미지 src 뒤에 ?v=값 이 자동으로 붙습니다)
    * ───────────────────────────────────────── */
-  assetVersion: '20260630a'
+  assetVersion: '20260630b'
 
 };
 
