@@ -204,14 +204,23 @@ function initGreeting() {
     return `${escapeHtml(parents)}의 ${escapeHtml(order)} ${escapeHtml(name)}`;
   }
 
+  // 인용구 블록 (있을 때만)
+  const quoteHtml = CONFIG.greetingQuote
+    ? `<blockquote class="greeting-quote font-display">${escapeHtml(CONFIG.greetingQuote)}</blockquote>` +
+      (CONFIG.greetingAuthor ? `<p class="greeting-author">— ${escapeHtml(CONFIG.greetingAuthor)}</p>` : '')
+    : '';
+
   section.innerHTML = `
     <h2 class="section-title">
       <span class="en">Invitation</span>
       인사말
     </h2>
 
+    <!-- 인용구 + 출처 -->
+    ${quoteHtml}
+
     <!-- 인사말 본문: white-space:pre-line으로 \n 처리 -->
-    <div class="greeting-text font-display">${escapeHtml(CONFIG.greeting)}</div>
+    <div class="greeting-text">${escapeHtml(CONFIG.greeting)}</div>
 
     <!-- 양가 혼주 표기 -->
     <div class="greeting-parents">

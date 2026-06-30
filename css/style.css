@@ -712,13 +712,40 @@ select {
   text-align: center;
 }
 
-/* 인사말 본문: 명조 폰트, pre-line으로 \n 처리 */
-.greeting-text {
+/* 인사말 상단 인용구: 명조, 살짝 크게 강조 */
+.greeting-quote {
+  font-family: var(--font-display);
   font-size: var(--font-size-md);
+  line-height: 1.7;
+  color: var(--color-text-primary);
+  white-space: pre-line;       /* \n 줄바꿈 */
+  letter-spacing: 0.01em;
+  word-break: keep-all;        /* 단어 중간에서 줄바꿈되지 않게 */
+  text-align: center;
+  margin: 0 auto var(--space-sm);
+  border: 0;
+  padding: 0;
+}
+
+/* 인용구 출처 */
+.greeting-author {
+  font-family: var(--font-display);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-align: center;
+  letter-spacing: 0.04em;
+  margin-bottom: var(--space-xl);
+}
+
+/* 인사말 본문: 가독성 위주 본문체, pre-line으로 \n 처리 */
+.greeting-text {
+  font-size: var(--font-size-base);
+  font-weight: 300;
   line-height: var(--line-height-loose);
   color: var(--color-text-primary);
   white-space: pre-line;       /* CONFIG의 \n을 실제 줄바꿈으로 표시 */
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
+  text-align: center;
   margin-bottom: var(--space-xl);
 }
 
