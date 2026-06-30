@@ -715,8 +715,8 @@ select {
 /* 인사말 상단 인용구: 명조, 살짝 크게 강조 */
 .greeting-quote {
   font-family: var(--font-display);
-  font-size: var(--font-size-sm);
-  line-height: 1.8;
+  font-size: var(--font-size-md);
+  line-height: 1.85;
   color: var(--color-text-primary);
   white-space: pre-line;       /* \n 줄바꿈 */
   letter-spacing: 0.01em;
