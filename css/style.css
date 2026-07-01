@@ -787,6 +787,12 @@ select {
   letter-spacing: 0.04em;
 }
 
+/* 신랑·신부 이름 강조 (살짝만 굵게) */
+.greeting-name {
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
 
 /* ─────────────────────────────────────────────────────────────────
    #calendar — 달력 + D-day 카운트다운 섹션

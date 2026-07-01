@@ -201,7 +201,8 @@ function initGreeting() {
   // 예: "홍판서 · 춘섬의 장남 홍길동"
   function buildParentsLine(father, mother, order, name) {
     const parents = [father, mother].filter(Boolean).join(' · ');
-    return `${escapeHtml(parents)}의 ${escapeHtml(order)} ${escapeHtml(name)}`;
+    // 신랑·신부 이름만 강조(굵게)
+    return `${escapeHtml(parents)}의 ${escapeHtml(order)} <strong class="greeting-name">${escapeHtml(name)}</strong>`;
   }
 
   // 인용구 블록 (있을 때만)
